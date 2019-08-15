@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Character Limit</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+
+
+    <script type="text/babel">
+
+        /*
+        Instructions:
+            Assume you're creating an app that allows the user to 
+            post status updates (ala Twitter). Your UI should have a
+            textarea and a button. The button should be disabled if the
+            length of the textarea is 0 or greater than 240 characters.
+            The document's title should inform the user on how many
+            characters they have left to type before they hit the 240
+            character limit - "115 characters left."
+        */
+
+        function App() {
+
+            const [input, setInput] = React.useState('')
+
+            React.useEffect(() => {
+                document.title = `${240 - input.length} characters left`
+            }, [input]);
+                
+            return (
+                <div className="App">
+                    <textarea
+                        type='text'
+                        value={input}
+                        placeholder='Type some text...'
+                        onChange={(e) => setInput(e.target.value)}
+                    />
+                    <button
+                        disabled={input.length === 0 || input.length > 240}
+                    >
+                        Submit
+                    </button>
+                </div>
+            );
+        }
+
+        const rootElement = document.getElementById("root");
+        ReactDOM.render(<App />, rootElement);
+    </script>
+</body>
+
+</html>
