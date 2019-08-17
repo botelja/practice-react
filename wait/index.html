@@ -29,11 +29,12 @@
             const [loading, setLoading] = React.useState(false)
 
             React.useEffect(() => {
-                //setLoading(false)
 
-                setTimeout(() => {
+                const id = setTimeout(() => {
                     setLoading(true)
                 }, delay)
+
+                return () => clearTimeout(id)
             }, [delay])
             return loading
         }
