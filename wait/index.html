@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Character Limit</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        /*
+            Instructions:
+                Finish implementing the `useWait` custom Hook.
+                `useWait` should return a boolean that changes from
+                `false` to `true` after `delay` seconds. 
+            */
+
+        function useWait (delay) {
+            const [loading, setLoading] = React.useState(false)
+
+            React.useEffect(() => {
+                //setLoading(false)
+
+                setTimeout(() => {
+                    setLoading(true)
+                }, delay)
+            }, [delay])
+            return loading
+        }
+
+        function Wait({ delay = 1000, placeholder, ui }) {
+            const show = useWait(delay)
+
+            return show === true
+                ? ui
+                : placeholder
+        }
+
+        function App() {
+            return (
+                <div className="App">
+                <Wait
+                    delay={3000}
+                    placeholder={<p>Waiting...</p>}
+                    ui={<p>This text should appear after 3 seconds.</p>}
+                />
+                </div>
+            );
+        }
+
+        const rootElement = document.getElementById("root");
+        ReactDOM.render(<App />, rootElement);
+
+
+    </script>
+</body>
+
+</html>
